@@ -1,7 +1,16 @@
 # cricheroes
 Python APIs to fetch and store team data from cricheroes.in
 
-# Install module
+# Set up 
+## Install Google Chrome
+* Windows: Download and install google chrome for windows 
+* Linux: Refer to https://linuxconfig.org/how-to-install-google-chrome-browser-on-linux
+  * For selenium webdriver refer : https://gist.github.com/siumhossain/1aa24622d8fda5053581c87ca6457638
+* Docker: For Alpine run following
+  * apk add chromium
+  * apk add  chromium-chromedriver
+  
+## Install module
 Download and install 'cricheroes' python module from pypi.
 Use the following command
 ```

@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='cricheroes',
-    version='1.0.1',
+    version='1.0.3',
     packages=['cricheroes'],
     install_requires=['beautifulsoup4', 'python-dateutil', 'selenium'],
     url='https://github.com/pupattan/cricheroes',

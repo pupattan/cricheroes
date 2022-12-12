@@ -187,7 +187,11 @@ class Team:
     def get_page_texts(self):
         data = {}
         options = webdriver.ChromeOptions()
-        options.set_headless = True
+        options.add_argument('headless')
+        options.add_argument('--disable-infobars')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--remote-debugging-port=9222')
         driver = webdriver.Chrome(options=options)
         driver.get(self.__get_full_url())
 
@@ -325,11 +329,11 @@ class Team:
                 }
 
     def dump_all(self):
-        base_dir = Path(__file__).parent.absolute()
+        base_dir = Path("")
         out_path = base_dir / Path('out.json')
         with open(str(out_path.absolute()), 'w') as f:
             json.dump(self.fetch_all_data(), f, indent=4, cls=ChJsonEncoder)
-        print("Done")
+        print("Json file created : " + str(out_path.absolute()))
 
 
 if __name__ == '__main__':
