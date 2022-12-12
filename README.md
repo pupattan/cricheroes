@@ -64,5 +64,13 @@ from cricheroes import Team
 team = Team(url='2580003/CP-Sm@shers')
 team.dump_all()
 
-# This will craete a json file 'out.json' at current location
+# This will craete a json file 'out.json' at current directory
 ```
+
+# To test:
+Download gist file https://gist.githubusercontent.com/pupattan/02e6e2cad7edfd78c4620adbb9dfa992/raw/973fa27444f1865d3f9b6538f3a49e30971428e4/cricheroes_test.py
+Run file after doing the set up 
+```python
+python cricheroes_test.py
+```
+out.json file will be created at current directory 
