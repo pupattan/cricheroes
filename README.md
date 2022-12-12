@@ -1,5 +1,5 @@
 # cricheroes
-Python APIs to fetch and store team data from cricheroes.in
+Python APIs to fetch and store data of a particular team from cricheroes.in
 
 # Set up 
 ## Install Google Chrome
@@ -8,16 +8,16 @@ Python APIs to fetch and store team data from cricheroes.in
   * For selenium webdriver refer : https://gist.github.com/siumhossain/1aa24622d8fda5053581c87ca6457638
 * Docker: For Alpine run following
   * apk add chromium
-  * apk add  chromium-chromedriver
+  * apk add chromium-chromedriver
   
-## Install module
-Download and install 'cricheroes' python module from pypi.
-Use the following command
+## Install python module
+* Download and install 'cricheroes' python module from pypi.
+* Use the following command
 ```
 pip install cricheroes
 ```
 # Usage
-Create Team object and use it as per your requirement
+* Create Team object and use it as per your requirement
 ```python
 from cricheroes import Team
 # Create Team Object 
@@ -68,9 +68,9 @@ team.dump_all()
 ```
 
 # To test:
-Download gist file https://gist.githubusercontent.com/pupattan/02e6e2cad7edfd78c4620adbb9dfa992/raw/973fa27444f1865d3f9b6538f3a49e30971428e4/cricheroes_test.py
-Run file after doing the set up 
-```python
+* Download gist file from [here](https://gist.githubusercontent.com/pupattan/02e6e2cad7edfd78c4620adbb9dfa992/raw/973fa27444f1865d3f9b6538f3a49e30971428e4/cricheroes_test.py)
+* Run file after doing the set up 
+```
 python cricheroes_test.py
 ```
-out.json file will be created at current directory 
+* out.json file will be created at current directory 
