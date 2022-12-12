@@ -1,0 +1,1 @@
+from .cricheroes import *

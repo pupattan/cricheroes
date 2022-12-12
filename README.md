@@ -10,7 +10,7 @@ pip install cricheroes
 # Usage
 Create Team object and use it as per your requirement
 ```python
-from cricheroes.cricheroes import Team
+from cricheroes import Team
 # Create Team Object 
 team = Team(url='2580003/CP-Sm@shers')
 
@@ -48,4 +48,12 @@ for item in leaderboard['bowling']:
 # Print fielding stat
 for item in leaderboard['fielding']:
     print(item.player_name, item.stat)
+
+# Get all data and dump to json
+from cricheroes import Team
+# Create Team Object 
+team = Team(url='2580003/CP-Sm@shers')
+team.dump_all()
+
+# This will craete a json file 'out.json' at current location
 ```
