@@ -4,7 +4,7 @@ setup(
     name='cricheroes',
     version='0.0.1',
     packages=['cricheroes'],
-    install_requires=[],
+    install_requires=['beautifulsoup4', 'python-dateutil', 'selenium'],
     url='https://github.com/pupattan/cricheroes',
     license='MIT',
     author='pattap',
