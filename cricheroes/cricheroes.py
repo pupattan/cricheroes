@@ -13,6 +13,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from dateutil.parser import parse
+from selenium.webdriver.common.keys import Keys
 
 
 class Player:
@@ -174,9 +175,16 @@ class Team:
             players.append(player)
         return players
 
-    def __click_and_fetch(self, driver, tab, text_div_class_or_id="", match_text="", by=By.ID):
+    def __click_and_fetch(self, driver, tab, text_div_class_or_id="", match_text="", by=By.ID, more_div_id=""):
         driver.find_element(value=tab).click()
-        time.sleep(3)
+        time.sleep(5)
+        if more_div_id:
+            while 'load more' in driver.find_element(value=more_div_id).text.lower():
+                driver.find_element(value=more_div_id).click()
+                time.sleep(2)
+                continue
+            driver.find_element(value='body', by=By.TAG_NAME).send_keys(Keys.CONTROL + Keys.HOME)
+            time.sleep(5)
         if match_text:
             while match_text not in driver.find_element(value=text_div_class_or_id, by=by).text.lower():
                 time.sleep(2)
@@ -218,17 +226,20 @@ class Team:
                                                                               match_text="batting stat",
                                                                               text_div_class_or_id=
                                                                               'leaderboard-section-title',
-                                                                              by=By.CLASS_NAME
+                                                                              by=By.CLASS_NAME,
+                                                                              more_div_id="loadMoreLeaderBoardBatting"
                                                                               )
 
         data['leaderboard'][LeaderboardStat.BOWLING] = self.__click_and_fetch(driver,
                                                                               tab='bowlingTab',
-                                                                              by=By.CLASS_NAME
+                                                                              by=By.CLASS_NAME,
+                                                                              more_div_id="loadMoreLeaderBoardBowling"
                                                                               )
 
         data['leaderboard'][LeaderboardStat.FIELDING] = self.__click_and_fetch(driver,
                                                                                tab='fieldingTab',
-                                                                               by=By.CLASS_NAME
+                                                                               by=By.CLASS_NAME,
+                                                                               more_div_id="loadMoreLeaderBoardFielding"
                                                                                )
         driver.quit()
         return data
