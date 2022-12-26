@@ -14,7 +14,7 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from dateutil.parser import parse
 from selenium.webdriver.common.keys import Keys
-
+import platform
 
 class Player:
     """
@@ -181,25 +181,27 @@ class Team:
         if more_div_id:
             while 'load more' in driver.find_element(value=more_div_id).text.lower():
                 driver.find_element(value=more_div_id).click()
-                time.sleep(2)
+                time.sleep(5)
                 continue
             driver.find_element(value='body', by=By.TAG_NAME).send_keys(Keys.CONTROL + Keys.HOME)
             time.sleep(5)
         if match_text:
             while match_text not in driver.find_element(value=text_div_class_or_id, by=by).text.lower():
-                time.sleep(2)
+                time.sleep(5)
                 continue
-        time.sleep(3)
+        time.sleep(5)
         return copy.deepcopy(driver.page_source)
 
     def get_page_texts(self):
         data = {}
         options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        options.add_argument('--disable-infobars')
-        options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--remote-debugging-port=9222')
+        options.add_argument('--start-maximized')
+        if 'win' not in platform.system().lower():
+            options.add_argument('headless')
+            options.add_argument('--disable-infobars')
+            options.add_argument('--disable-dev-shm-usage')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--remote-debugging-port=9222')
         driver = webdriver.Chrome(options=options)
         driver.get(self.__get_full_url())
 
