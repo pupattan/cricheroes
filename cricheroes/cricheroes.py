@@ -175,20 +175,34 @@ class Team:
             players.append(player)
         return players
 
-    def __click_and_fetch(self, driver, tab, text_div_class_or_id="", match_text="", by=By.ID, more_div_id=""):
+    def __click_and_fetch(self, driver, tab, text_div_class_or_id="", match_text="", by=By.ID, more_div_id="",
+                          wait_for_item=""):
         driver.find_element(value=tab).click()
         time.sleep(5)
+        if wait_for_item:
+            start_time = time.time()
+            while not driver.find_element(By.CLASS_NAME, wait_for_item) \
+                    and time.time() - start_time < 60:
+                print("Clicking tab {}.".format(tab))
+                driver.find_element(value=tab).click()
+                time.sleep(5)
+                print("Checking for element to appear {}. {}".format(wait_for_item, time.time() - start_time))
+
+        start_time = time.time()
         if more_div_id:
-            while 'load more' in driver.find_element(value=more_div_id).text.lower():
+            while 'load more' in driver.find_element(value=more_div_id).text.lower() and time.time() - start_time < 60:
                 driver.find_element(value=more_div_id).click()
                 time.sleep(5)
-                continue
+                print("Checking load more for element to appear. {}".format(time.time() - start_time))
+
             driver.find_element(value='body', by=By.TAG_NAME).send_keys(Keys.CONTROL + Keys.HOME)
             time.sleep(5)
+        start_time = time.time()
         if match_text:
-            while match_text not in driver.find_element(value=text_div_class_or_id, by=by).text.lower():
+            while match_text not in driver.find_element(value=text_div_class_or_id, by=by).text.lower() and \
+                    time.time() - start_time < 60:
                 time.sleep(5)
-                continue
+                print("Checking for matching element to appear . {}".format(time.time() - start_time))
         time.sleep(5)
         return copy.deepcopy(driver.page_source)
 
@@ -229,19 +243,22 @@ class Team:
                                                                               text_div_class_or_id=
                                                                               'leaderboard-section-title',
                                                                               by=By.CLASS_NAME,
-                                                                              more_div_id="loadMoreLeaderBoardBatting"
+                                                                              #more_div_id="loadMoreLeaderBoardBatting",
+                                                                              wait_for_item="list-group-item-heading"
                                                                               )
 
         data['leaderboard'][LeaderboardStat.BOWLING] = self.__click_and_fetch(driver,
                                                                               tab='bowlingTab',
                                                                               by=By.CLASS_NAME,
-                                                                              more_div_id="loadMoreLeaderBoardBowling"
+                                                                              #more_div_id="loadMoreLeaderBoardBowling",
+                                                                              wait_for_item="list-group-item-heading"
                                                                               )
 
         data['leaderboard'][LeaderboardStat.FIELDING] = self.__click_and_fetch(driver,
                                                                                tab='fieldingTab',
                                                                                by=By.CLASS_NAME,
-                                                                               more_div_id="loadMoreLeaderBoardFielding"
+                                                                               #more_div_id="loadMoreLeaderBoardFielding",
+                                                                               wait_for_item="list-group-item-heading"
                                                                                )
         driver.quit()
         return data
