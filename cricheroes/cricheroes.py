@@ -81,7 +81,10 @@ class Match:
         :return: date time object
 
         """
-        return parse(self.info, fuzzy=True).date()
+        datastring = self.info
+        if len(self.info) > 2:
+            datastring = self.info.split(",")[2]
+        return parse(datastring, fuzzy=True).date()
 
     @property
     def venue(self):
@@ -200,7 +203,7 @@ class Team:
         start_time = time.time()
         if match_text:
             while match_text not in driver.find_element(value=text_div_class_or_id, by=by).text.lower() and \
-                    time.time() - start_time < 60:
+                    time.time() - start_time < 30:
                 time.sleep(5)
                 print("Checking for matching element to appear . {}".format(time.time() - start_time))
         time.sleep(5)
@@ -225,7 +228,7 @@ class Team:
         # Matches tab
         data['matches'] = self.__click_and_fetch(driver,
                                                  tab='matchesTab',
-                                                 match_text="individual",
+                                                 match_text="result",
                                                  text_div_class_or_id='tournamentmatches'
                                                  )
         data['stats'] = self.__click_and_fetch(driver,
@@ -367,5 +370,5 @@ class Team:
 
 
 if __name__ == '__main__':
-    team = Team(url="2580003/CP-Sm@shers")
+    team = Team(url="345698/Spartans-CC---RED")
     team.dump_all()
