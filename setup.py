@@ -5,7 +5,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='cricheroes',
-    version='1.0.9',
+    version='1.0.10',
     packages=['cricheroes'],
     install_requires=['beautifulsoup4', 'python-dateutil', 'selenium'],
     url='https://github.com/pupattan/cricheroes',

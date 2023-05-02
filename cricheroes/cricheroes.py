@@ -370,5 +370,5 @@ class Team:
 
 
 if __name__ == '__main__':
-    team = Team(url="345698/Spartans-CC---RED")
+    team = Team(url="2580003/CP-Sm@shers")
     team.dump_all()
